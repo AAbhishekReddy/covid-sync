@@ -13,13 +13,15 @@ def format_center(center):
     return {"center_details": center_details, "sessions": sessions}
 
 
-def get_slots(**context):
+def get_slots(**kwargs):
+    min_age_limit = kwargs["min_age"]
+
     available_centers = []
 
     today = date.today()
     today = today.strftime("%d-%m-%Y")
     filters = {
-        "district_id": '265',
+        "district_id": kwargs["district_id"],
         "date": "23-05-2021",
     }
     request_headers = {
@@ -36,7 +38,7 @@ def get_slots(**context):
         center_details = center
         sessions = []
         for session in center_details['sessions']:
-            if session["min_age_limit"] == 18:
+            if session["min_age_limit"] == min_age_limit:
                 sessions.append(session)
         if len(sessions):
             center_details.pop("sessions")

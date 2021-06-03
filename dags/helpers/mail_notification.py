@@ -58,8 +58,8 @@ template_html = """
 """
 
 
-def mail_notification(**context):
-    recipient_address = "annemabhishekreddy@gmail.com"
+def mail_notification(**kwargs):
+    recipient_address = kwargs["email"]
     subject = "Available Vaccination Centers"
 
     with open('centers.json', 'r') as openfile:
